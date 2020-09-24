@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- LINKS -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="styles.css">
+  <!-- SCRIPTS -->
   <script src="https://use.fontawesome.com/8877301646.js"></script>
+  <script language="javascript" type="text/javascript" src="web3.min.js"></script>
   <script src="app.js" defer></script>
+  <!-- TITLE -->
   <title>Document</title>
 </head>
 <body>
-<!--===============-->
+<!--=============================================-->
 <!-- NAVARB -->
-<!--===============-->
+<!--=============================================-->
  <nav class="navbar">
    <div class="title">
     <h6>Monkey Claw</h6>
@@ -20,9 +24,9 @@
    </div>
  </nav>
 
-<!--===============-->
+<!--=============================================-->
 <!-- MAIN -->
-<!--===============-->
+<!--=============================================-->
     <div class="main">
       <div class="register">
         <h6>Register</h6>
@@ -65,9 +69,9 @@
       </div>
     </div>
 
-<!--===============-->
+<!--=============================================-->
 <!-- FOOTER -->
-<!--===============-->
+<!--=============================================-->
     <footer class="footer">
       <div class="contact">
         <div class="contact-title">Contact</div>
@@ -87,9 +91,130 @@
         </div>
       </div>
     </footer>
+
+<!--=============================================-->
+<!-- IMPORTS FROM CRYPTO-ZOMBIE TUTORIAL -->
+<!--=============================================-->
+  <div id="txStatus"></div>
+  <div id="monkeyPaw"></div>
+
+  <script>
+    var monkeyPaw;
+    var userAccount;
+
+    // Monkey merge toek address: 0x824Be372A736FA08bA2833bC35F3ed7DA2E0Ee64
+
+    function startApp() {
+      var monkeyPawAddress = "YOUR_CONTRACT_ADDRESS";
+      monkeyPaw = new web3js.eth.Contract(monkeyPawABI, monkeyPawAddress);
+
+      // checks every 100 miliseconds if the account has been changed,
+      // and update to the new account if it has
+      var accountInterval = setInterval(function () {
+        if (web3.eth.accounts[0] !== userAccount) {
+          userAccount = web3.eth.accounts[0];
+
+          getMonkeyPawByOwner(userAccount)
+            .then(displayMonkeyPaw);
+        }
+      }, 100);
+
+      monkeyPaw.events.Transfer({ filter: { _to: userAccount } })
+        .on("data", function (event) {
+          let data = event.returnValues;
+          getMonkeyPawByOwner(userAccount).then(displayMonkeyPaw);
+        }).on("error", console.error);
+    }
+
+    function displayMonkeyPaw(ids) {
+      $("#monkeyPaw").empty();
+      for (id of ids) {
+        getMonkeyPawDetails(id)
+          .then(function (monkeyPaw) {
+            $("#monkeyPaw").append(`<div class="monkeyPaw">
+              <ul>
+                <li>Name: ${monkeyPaw.name}</li>
+                <li>DNA: ${monkeyPaw.dna}</li>
+                <li>Level: ${monkeyPaw.level}</li>
+                <li>Wins: ${monkeyPaw.winCount}</li>
+                <li>Losses: ${monkeyPaw.lossCount}</li>
+                <li>Ready Time: ${monkeyPaw.readyTime}</li>
+              </ul>
+            </div>`);
+          });
+      }
+    }
+
+    function createRandomMonkeyPaw(name) {
+      $("#txStatus").text("Creating new monkeyPaw on the blockchain. This may take a while...");
+      return monkeyPaw.methods.createRandomMonkeyPaw(name)
+        .send({ from: userAccount })
+        .on("receipt", function (receipt) {
+          $("#txStatus").text("Successfully created " + name + "!");
+          getMonkeyPawByOwner(userAccount).then(displayMonkeyPaw);
+        })
+        .on("error", function (error) {
+
+          $("#txStatus").text(error);
+        });
+    }
+
+    /*
+    function feedOnKitty(zombieId, kittyId) {
+      $("#txStatus").text("Eating a kitty. This may take a while...");
+      return cryptoZombies.methods.feedOnKitty(zombieId, kittyId)
+        .send({ from: userAccount })
+        .on("receipt", function (receipt) {
+          $("#txStatus").text("Ate a kitty and spawned a new Zombie!");
+          getZombiesByOwner(userAccount).then(displayZombies);
+        })
+        .on("error", function (error) {
+          $("#txStatus").text(error);
+        });
+    }
+    */
+
+    /*
+    function levelUp(zombieId) {
+      $("#txStatus").text("Leveling up your zombie...");
+      return cryptoZombies.methods.levelUp(zombieId)
+        .send({ from: userAccount, value: web3.utils.toWei("0.001", "ether") })
+        .on("receipt", function (receipt) {
+          $("#txStatus").text("Power overwhelming! Zombie successfully leveled up");
+        })
+        .on("error", function (error) {
+          $("#txStatus").text(error);
+        });
+    }
+    */
+
+    function getMonkeyPawDetails(id) {
+      return monkeyPaw.methods.monkeyPaw(id).call()
+    }
+
+    function monkeyPawToOwner(id) {
+      return monkeyPaw.methods.monkeyPawToOwner(id).call()
+    }
+
+    function getMonkeyPawByOwner(owner) {
+      return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
+    }
+
+    window.addEventListener('load', function () {
+      if (typeof web3 !== 'undefined') {
+        web3js = new Web3(web3.currentProvider);
+      } else {
+        // Handle the case where the user doesn't have web3. Probably
+        // show them a message telling them to install Metamask in
+        // order to use our app.
+      }
+      startApp()
+    })
+    
+  </script>
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
-<!-- <script>confetti.start()</script> -->
 
 </html>
