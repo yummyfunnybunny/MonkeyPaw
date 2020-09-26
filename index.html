@@ -11,7 +11,6 @@
   <script src="https://use.fontawesome.com/8877301646.js"></script>
   <script src="https://rawgit.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethjs@0.3.0/dist/ethjs.min.js"></script>
-  <!-- <script language="javascript" type="text/javascript" src="web3.min.js"></script> -->
   <script language="javascript" type="text/javascript" src="monkeypaw_abi.js"></script>
   <script src="app.js" defer></script>
   <!-- TITLE -->
@@ -164,7 +163,8 @@
         // Need to add Owner, repo, pr
         alert("Works ");
         miniToken.deposit("420","Dirty","Boss", {
-            from: address
+            from: address,
+            value: 420000000000000
           })
           .then(function(txHash) {
             console.log('Correct');
