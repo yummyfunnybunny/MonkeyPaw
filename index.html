@@ -161,8 +161,8 @@
       depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
-        alert("send it ");
-        miniToken.methods.deposit("420","Dirty","Boss")
+        alert("send it 2 ");
+        miniToken.deposit("420","Dirty","Boss").send()
           .then(function(txHash) {
             console.log('420 bruh');
             console.dir(txHash);
