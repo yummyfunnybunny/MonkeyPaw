@@ -158,14 +158,14 @@
 
       var depositButton = document.getElementById("deposit");
 
-      depositButton.addEventListener('click', async function() {
+      depositButton.addEventListener('click',function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        alert("crazy");
+        alert("lord help me");
 
-        await tests.deposit("centrist", "dude", "420").send({from: address},function(err, transactionHash){
+        tests.deposit("centrist", "dude", "420",function(err, transactionHash){
           if(!err){console.log(transactionHash)}
         });
 
