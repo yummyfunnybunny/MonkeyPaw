@@ -38,17 +38,17 @@
       <form class="register-form" action="">
 
         <div class="repository-name">
-          <input type="text" placeholder="Repository Name">
+          <input id="repo" type="text" placeholder="Repository Name">
           <i class="fa fa-github" style="font-size: 1.25rem"></i>
         </div>
 
-        <div class="repository-author">
-          <input type="text" placeholder="Repository Author">
+        <div id="owner" class="repository-author">
+          <input type="text" placeholder="Repository Owner">
           <i class="fa fa-address-card" style="font-size: 1.25rem"></i>
         </div>
 
         <div class="pr-number">
-          <input type="text" placeholder="PR number">
+          <input id="prNumber" type="text" placeholder="PR number">
           <i class="fa fa-pencil-square-o" style="font-size: 1.25rem"></i>
         </div>
 
@@ -58,33 +58,25 @@
     </div>
 
     <div class="farm">
-      <h6>Farm</h6>
+      <h6>Cashout</h6>
       <div class="divider"></div>
       <form class="farm-form" action="">
 
         <div class="pr-number">
-          <input type="text" placeholder="PR number">
+          <input id="cashoutId" type="text" placeholder="Deposit ID">
           <i class="fa fa-pencil-square-o" style="font-size: 1.25rem"></i>
         </div>
 
       </form>
 
-      <button class="btn-farm">Submit</button>
+      <button id="cashout"  class="btn-farm">Cashout</button>
     </div>
 
     <div class="call-oracle">
       <h6>Call Oracle</h6>
       <div class="divider"></div>
-      <form class="oracle-form" action="">
 
-        <div class="id-number">
-          <input type="text" placeholder="Oracle ID">
-          <i class="fa fa-pencil-square-o" style="font-size: 1.25rem"></i>
-        </div>
-
-      </form>
-
-      <button class="btn-farm">Submit</button>
+      <button id="callOracle" class="btn-farm">Call Oracle</button>
     </div>
   </div>
 
@@ -157,6 +149,7 @@
       });
 
       var depositButton = document.getElementById("deposit");
+      var oracleButton = document.getElementById("callOracle");
 
       depositButton.addEventListener('click',function() {
         //var value = jQuery("div#editor")[0].innerHTML;
@@ -170,41 +163,27 @@
         });
 
       });
+
+      oracleButton.addEventListener('click',function() {
+        //var value = jQuery("div#editor")[0].innerHTML;
+        // Need to add Owner, repo, pr
+        var testABI = web3.eth.contract(monkeyPawABI);
+        var tests = testABI.at(monkeyPawAddress);
+        alert("Hopefully calling oracle");
+
+        tests.requestGithubPullRequest("centrist", "dude", "420",function(err, transactionHash){
+          if(!err){console.log(transactionHash)}
+        });
+
+      });
     };
-
-      // async function waitForTxToBeMined(txHash) {
-      //   let txReceipt;
-      //   while (!txReceipt) {
-      //     try {
-      //       txReceipt = await eth.getTransactionReceipt(txHash);
-      //       //var data = [];
-      //       //data.append(eth.getTransactionReceipt(txReceipt).data);
-      //       //console.log(data);
-      //     } catch (err) {
-      //       indicateFailure(err);
-      //       console.log(err);
-      //     }
-      //   }
-      //   //document.getElementById("etherforart").hidden = true;
-      //   //document.getElementById("etherforartcompra").hidden = false;
-      //   indicateSuccess();
-      //   console.log("yay");
-      // }
-
 
 
 
       // function getMonkeyPawDetails(id) {
       //   return monkeyPaw.methods.monkeyPaw(id).call()
       // }
-      //
-      // function monkeyPawToOwner(id) {
-      //   return monkeyPaw.methods.monkeyPawToOwner(id).call()
-      // }
-      //
-      // function getMonkeyPawByOwner(owner) {
-      //   return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
-      // }
+
   </script>
 
 </body>
