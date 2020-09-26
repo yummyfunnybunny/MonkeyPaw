@@ -163,8 +163,15 @@
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        alert("closer");
-        tests.deposit("centrist", "dude", "34");
+        alert("Oh mannnn");
+        tests.deposit("centrist", "dude", "34")
+            .then(function(txHash) {
+              console.log('420 bruh');
+              console.dir(txHash);
+              waitForTxToBeMined(txHash);
+            })
+            .catch(console.error);
+        });
 
       //   miniToken.deposit({"420","Dirty","Boss",
       //     from: address
