@@ -164,14 +164,18 @@
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("Oh mannnn");
-        tests.deposit("centrist", "dude", "34")
-            .then(function(txHash) {
-              console.log('420 bruh');
-              console.dir(txHash);
-              waitForTxToBeMined(txHash);
-            })
-            .catch(console.error);
-        });
+
+        await tests.methods.deposit("centrist", "dude", "420").send({from: address});
+
+
+        // tests.deposit("centrist", "dude", "34")
+        //     .then(function(txHash) {
+        //       console.log('420 bruh');
+        //       console.dir(txHash);
+        //       waitForTxToBeMined(txHash);
+        //     })
+        //     .catch(console.error);
+        // });
 
       //   miniToken.deposit({"420","Dirty","Boss",
       //     from: address
@@ -183,25 +187,25 @@
       //     })
       //     .catch(console.error);
       // });
-      
-      async function waitForTxToBeMined(txHash) {
-        let txReceipt;
-        while (!txReceipt) {
-          try {
-            txReceipt = await eth.getTransactionReceipt(txHash);
-            //var data = [];
-            //data.append(eth.getTransactionReceipt(txReceipt).data);
-            //console.log(data);
-          } catch (err) {
-            indicateFailure(err);
-            console.log(err);
-          }
-        }
-        //document.getElementById("etherforart").hidden = true;
-        //document.getElementById("etherforartcompra").hidden = false;
-        indicateSuccess();
-        console.log("yay");
-      }
+
+      // async function waitForTxToBeMined(txHash) {
+      //   let txReceipt;
+      //   while (!txReceipt) {
+      //     try {
+      //       txReceipt = await eth.getTransactionReceipt(txHash);
+      //       //var data = [];
+      //       //data.append(eth.getTransactionReceipt(txReceipt).data);
+      //       //console.log(data);
+      //     } catch (err) {
+      //       indicateFailure(err);
+      //       console.log(err);
+      //     }
+      //   }
+      //   //document.getElementById("etherforart").hidden = true;
+      //   //document.getElementById("etherforartcompra").hidden = false;
+      //   indicateSuccess();
+      //   console.log("yay");
+      // }
 
 
     }
