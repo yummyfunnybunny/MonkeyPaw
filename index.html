@@ -11,6 +11,7 @@
   <script src="https://use.fontawesome.com/8877301646.js"></script>
   <script src="https://rawgit.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethjs@0.3.0/dist/ethjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
   <script language="javascript" type="text/javascript" src="monkeypaw_abi.js"></script>
   <script src="app.js" defer></script>
   <!-- TITLE -->
@@ -42,8 +43,8 @@
           <i class="fa fa-github" style="font-size: 1.25rem"></i>
         </div>
 
-        <div id="owner" class="repository-author">
-          <input type="text" placeholder="Repository Owner">
+        <div class="repository-author">
+          <input id="owner" type="text" placeholder="Repository Owner">
           <i class="fa fa-address-card" style="font-size: 1.25rem"></i>
         </div>
 
@@ -63,7 +64,7 @@
       <form class="farm-form" action="">
 
         <div class="pr-number">
-          <input id="cashoutId" type="text" placeholder="Deposit ID">
+          <input id="cashoutId" type="number" placeholder="Deposit ID">
           <i class="fa fa-pencil-square-o" style="font-size: 1.25rem"></i>
         </div>
 
@@ -147,10 +148,16 @@
         address = accounts.toString();
         window.sessionStorage.setItem("My address", address);
       });
-
+////////////Setting up buttons////////////////////////////////
       var depositButton = document.getElementById("deposit");
       var oracleButton = document.getElementById("callOracle");
       var cashoutButton = document.getElementById("cashout");
+///////////Setting up Values //////////////////////////////////
+
+      var cashoutId = document.getElementById('cashoutId').value;
+      var prNumber = document.getElementById('prNumber').value;
+      var owner = document.getElementById('owner').value;
+      var repo = document.getElementById('repo').value;
 
       //////////////// Making a Deposit  ///////////////////
       depositButton.addEventListener('click', function() {
@@ -158,7 +165,6 @@
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        alert("Registering Pull Request");
         tests.deposit("centrist", "dude", "420", function(err, transactionHash) {
           if (!err) {
             console.log(transactionHash)
@@ -185,6 +191,8 @@
       cashoutButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
+        alert(cashoutId, prNumber, owner, repo);
+        success();
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("Minting PAW tokens for user");
@@ -200,7 +208,5 @@
   </script>
 
 </body>
-
-<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 
 </html>
