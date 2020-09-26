@@ -3,14 +3,23 @@
 // ==========================
 const registerButton = document.querySelector('.btn-register');
 const farmButton = document.querySelector('.btn-farm');
+const oracleButton = document.querySelector('.btn-oracle');
 // ==========================
 // EVENT LISTENERS
 // ==========================
-registerButton.addEventListener('click', success);
 farmButton.addEventListener('click', success);
+oracleButton.addEventListener('click', success);
+
+registerButton.addEventListener('click', function() {
+  var repo = document.querySelector('.reg-name-input').value;
+  var owner = document.querySelector('.reg-author-input').value;
+  var pr = document.querySelector('.reg-pr-input').value;
+  deposit(owner, repo, pr);
+});
 // ==========================
 // FUNCTIONS
 // ==========================
+
 
 // Testing out something
 function success() {
@@ -26,5 +35,3 @@ function success() {
   var audio = new Audio('birthdaySound.mp3');
   audio.play();
 }
-
-

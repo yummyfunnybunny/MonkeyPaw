@@ -12,6 +12,7 @@
   <script src="https://rawgit.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ethjs@0.3.0/dist/ethjs.min.js"></script>
   <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+  <script language="javascript" type="text/javascript" src="monkeypaw_abi.js"></script>
   <script src="app.js" defer></script>
   <!-- TITLE -->
   <title>Document</title>
@@ -119,23 +120,24 @@
 
   <script>
     var monkeyPaw;
-    var userAccount;
+    var address;
 
-    // Monkey merge toek address: 0x824Be372A736FA08bA2833bC35F3ed7DA2E0Ee64
+    web3.eth.getAccounts(function(err, accounts) {
+      //  console.log(accounts);
+
+      address = accounts.toString();
+      window.sessionStorage.setItem("MiCuenta", address);
+    });
 
     function startApp() {
       var monkeyPawAddress = "0x4316C80D36Bbba4767cb0c13BA56CB72BBe7De49";
       monkeyPaw = new web3js.eth.Contract(monkeyPawABI, monkeyPawAddress);
 
 
-    function deposit(name) {
-      return monkeyPaw.methods.createRandomMonkeyPaw(name)
+    function deposit(owner, repo, pr) {
+      return monkeyPaw.methods.deposit(owner, repo, pr)
         .send({
-          from: userAccount
-        })
-        .on("receipt", function(receipt) {
-          $("#txStatus").text("Successfully created " + name + "!");
-          getMonkeyPawByOwner(userAccount).then(displayMonkeyPaw);
+          from: address
         })
         .on("error", function(error) {
           console.log("Did not work")
@@ -144,17 +146,17 @@
 
 
 
-    function getMonkeyPawDetails(id) {
-      return monkeyPaw.methods.monkeyPaw(id).call()
-    }
-
-    function monkeyPawToOwner(id) {
-      return monkeyPaw.methods.monkeyPawToOwner(id).call()
-    }
-
-    function getMonkeyPawByOwner(owner) {
-      return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
-    }
+    // function getMonkeyPawDetails(id) {
+    //   return monkeyPaw.methods.monkeyPaw(id).call()
+    // }
+    //
+    // function monkeyPawToOwner(id) {
+    //   return monkeyPaw.methods.monkeyPawToOwner(id).call()
+    // }
+    //
+    // function getMonkeyPawByOwner(owner) {
+    //   return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
+    // }
 
     window.addEventListener('load', function() {
       if (typeof web3 !== 'undefined') {
