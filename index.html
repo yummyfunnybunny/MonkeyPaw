@@ -163,9 +163,9 @@
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        alert("async");
+        alert("methods");
 
-        await tests.methods.deposit("centrist", "dude", "420").send({
+        await tests.deposit("centrist", "dude", "420").send({
           from: address
         });
 
