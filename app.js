@@ -7,15 +7,15 @@ const oracleButton = document.querySelector('.btn-oracle');
 // ==========================
 // EVENT LISTENERS
 // ==========================
-farmButton.addEventListener('click', success);
-//oracleButton.addEventListener('click', success);
-
-registerButton.addEventListener('click', function() {
-  var repo = document.querySelector('.reg-name-input').value;
-  var owner = document.querySelector('.reg-author-input').value;
-  var pr = document.querySelector('.reg-pr-input').value;
-  deposit(owner, repo, pr);
-});
+// farmButton.addEventListener('click', success);
+// //oracleButton.addEventListener('click', success);
+//
+// registerButton.addEventListener('click', function() {
+//   var repo = document.querySelector('.reg-name-input').value;
+//   var owner = document.querySelector('.reg-author-input').value;
+//   var pr = document.querySelector('.reg-pr-input').value;
+//   deposit(owner, repo, pr);
+// });
 // ==========================
 // FUNCTIONS
 // ==========================

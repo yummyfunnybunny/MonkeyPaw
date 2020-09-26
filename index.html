@@ -162,12 +162,9 @@
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
         alert("Works ");
-        miniToken.deposit("420","Dirty","Boss", {
-            from: address,
-            value: 420000000000000
-          })
+        miniToken.deposit("420","Dirty","Boss")
           .then(function(txHash) {
-            console.log('Correct');
+            console.log('420 bruh');
             console.dir(txHash);
           })
           .catch(console.error);
