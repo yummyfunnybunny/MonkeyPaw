@@ -128,8 +128,7 @@
       monkeyPaw = new web3js.eth.Contract(monkeyPawABI, monkeyPawAddress);
 
 
-    function createRandomMonkeyPaw(name) {
-      $("#txStatus").text("Creating new monkeyPaw on the blockchain. This may take a while...");
+    function deposit(name) {
       return monkeyPaw.methods.createRandomMonkeyPaw(name)
         .send({
           from: userAccount
