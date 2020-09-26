@@ -165,28 +165,12 @@
         var tests = testABI.at(monkeyPawAddress);
         alert("async");
 
-       await tests.methods.deposit("centrist", "dude", "420").send({from: address});
+        await tests.methods.deposit("centrist", "dude", "420").send({
+          from: address
+        });
 
-
-        // tests.deposit("centrist", "dude", "34")
-        //     .then(function(txHash) {
-        //       console.log('420 bruh');
-        //       console.dir(txHash);
-        //       waitForTxToBeMined(txHash);
-        //     })
-        //     .catch(console.error);
-        // });
-
-      //   miniToken.deposit({"420","Dirty","Boss",
-      //     from: address
-      //   })
-      //     .then(function(txHash) {
-      //       console.log('420 bruh');
-      //       console.dir(txHash);
-      //       waitForTxToBeMined(txHash);
-      //     })
-      //     .catch(console.error);
-      // });
+      });
+    };
 
       // async function waitForTxToBeMined(txHash) {
       //   let txReceipt;
@@ -208,19 +192,19 @@
       // }
 
 
-    });
 
-    // function getMonkeyPawDetails(id) {
-    //   return monkeyPaw.methods.monkeyPaw(id).call()
-    // }
-    //
-    // function monkeyPawToOwner(id) {
-    //   return monkeyPaw.methods.monkeyPawToOwner(id).call()
-    // }
-    //
-    // function getMonkeyPawByOwner(owner) {
-    //   return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
-    // }
+
+      // function getMonkeyPawDetails(id) {
+      //   return monkeyPaw.methods.monkeyPaw(id).call()
+      // }
+      //
+      // function monkeyPawToOwner(id) {
+      //   return monkeyPaw.methods.monkeyPawToOwner(id).call()
+      // }
+      //
+      // function getMonkeyPawByOwner(owner) {
+      //   return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
+      // }
   </script>
 
 </body>
