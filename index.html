@@ -191,7 +191,8 @@
       cashoutButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
-        alert(cashoutId, prNumber, owner, repo);
+        alert(cashoutId);
+        alert(owner);
         success();
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
