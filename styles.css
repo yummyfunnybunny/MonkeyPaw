@@ -29,7 +29,7 @@
 body {
   font-family: var(--font-family);
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -110,7 +110,7 @@ button:hover {
   border: var(--border-width) solid var(--clr-style-2);
   background-color: var(--clr-bg-light);
   width: 30%;
-  height: 75%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -168,6 +168,24 @@ button:hover {
 }
 
 .farm-form {
+  border: var(--debug-outline-size) solid var(--debug-outline-color-2);
+  display: flex;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CALL ORACLE */
+
+.call-oracle {
+  border: var(--debug-outline-size) solid var(--debug-outline-color-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: .5rem 0 0 0;
+}
+
+.oracle-form {
   border: var(--debug-outline-size) solid var(--debug-outline-color-2);
   display: flex;
   display: flex;
