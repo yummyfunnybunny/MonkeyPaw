@@ -8,7 +8,7 @@ const oracleButton = document.querySelector('.btn-oracle');
 // EVENT LISTENERS
 // ==========================
 farmButton.addEventListener('click', success);
-oracleButton.addEventListener('click', success);
+//oracleButton.addEventListener('click', success);
 
 registerButton.addEventListener('click', function() {
   var repo = document.querySelector('.reg-name-input').value;
