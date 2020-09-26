@@ -87,8 +87,7 @@
   <footer class="footer">
     <div class="contact">
       <div class="contact-title">Contact</div>
-      <a href="#" class="contact-email">MonkeyClaw@ProtonMail.com</a>
-      <a href="#" class="contact-phone">(555) 555-5555</a>
+      <a href="#" class="contact-email">defidane@opayq.com</a>
       <div></div>
     </div>
     <div class="copyright">Copyright</div>
@@ -99,7 +98,6 @@
         <a href="#"><i class="fa fa-twitter"></i></a>
         <a href="#"><i class="fa fa-facebook"></i></a>
         <a href="#"><i class="fa fa-youtube-play"></i></a>
-
       </div>
     </div>
   </footer>
@@ -152,20 +150,20 @@
       var depositButton = document.getElementById("deposit");
       var oracleButton = document.getElementById("callOracle");
       var cashoutButton = document.getElementById("cashout");
-///////////Setting up Values //////////////////////////////////
-
-      var cashoutId = document.getElementById('cashoutId').value;
-      var prNumber = document.getElementById('prNumber').value;
-      var owner = document.getElementById('owner').value;
-      var repo = document.getElementById('repo').value;
 
       //////////////// Making a Deposit  ///////////////////
       depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
+        var cashoutId = document.getElementById('cashoutId').value;
+        var prNumber = document.getElementById('prNumber').value;
+        var owner = document.getElementById('owner').value;
+        var repo = document.getElementById('repo').value;
+
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        tests.deposit("centrist", "dude", "420", function(err, transactionHash) {
+      // deposit(issueOrPr, owner, repo)
+        tests.deposit(prNumber, owner, repo, function(err, transactionHash) {
           if (!err) {
             console.log(transactionHash)
           }
@@ -176,11 +174,17 @@
       oracleButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
+
+        var cashoutId = document.getElementById('cashoutId').value;
+        var prNumber = document.getElementById('prNumber').value;
+        var owner = document.getElementById('owner').value;
+        var repo = document.getElementById('repo').value;
+
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("Hopefully calling oracle");
-
-        tests.requestGithubPullRequest("centrist", "dude", "420", function(err, transactionHash) {
+        //requestGithubPullRequest(_owner, _repo, _pullRequest)
+        tests.requestGithubPullRequest(owner, repo, prNumber, function(err, transactionHash) {
           if (!err) {
             console.log(transactionHash)
           }
@@ -195,13 +199,11 @@
         var owner = document.getElementById('owner').value;
         var repo = document.getElementById('repo').value;
         // Need to add Owner, repo, pr
-        alert(cashoutId);
-        alert(owner);
         success();
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("Minting PAW tokens for user");
-        tests.cashOut(2, function(err, transactionHash) {
+        tests.cashOut(cashoutId, function(err, transactionHash) {
           if (!err) {
             console.log(transactionHash)
           }
