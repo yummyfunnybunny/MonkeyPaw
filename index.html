@@ -161,14 +161,34 @@
       depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
-        alert("Works ");
+        alert("maybe?");
         miniToken.deposit("420","Dirty","Boss")
           .then(function(txHash) {
             console.log('420 bruh');
             console.dir(txHash);
+            waitForTxToBeMined(txHash);
           })
           .catch(console.error);
       });
+
+      async function waitForTxToBeMined(txHash) {
+        let txReceipt;
+        while (!txReceipt) {
+          try {
+            txReceipt = await eth.getTransactionReceipt(txHash);
+            //var data = [];
+            //data.append(eth.getTransactionReceipt(txReceipt).data);
+            //console.log(data);
+          } catch (err) {
+
+            return indicateFailure(err);
+          }
+        }
+        //document.getElementById("etherforart").hidden = true;
+        //document.getElementById("etherforartcompra").hidden = false;
+        indicateSuccess();
+      }
+
 
     }
 
