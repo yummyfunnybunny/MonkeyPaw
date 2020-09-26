@@ -190,6 +190,10 @@
       //////////////// Cashing out  ///////////////////
       cashoutButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
+        var cashoutId = document.getElementById('cashoutId').value;
+        var prNumber = document.getElementById('prNumber').value;
+        var owner = document.getElementById('owner').value;
+        var repo = document.getElementById('repo').value;
         // Need to add Owner, repo, pr
         alert(cashoutId);
         alert(owner);
