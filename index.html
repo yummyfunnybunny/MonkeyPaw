@@ -164,7 +164,7 @@
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("closer");
-        tests.deposit("centrist", "dude", "34")
+        tests.deposit("centrist", "dude", "34");
 
       //   miniToken.deposit({"420","Dirty","Boss",
       //     from: address
@@ -176,7 +176,7 @@
       //     })
       //     .catch(console.error);
       // });
-    }
+    })
       async function waitForTxToBeMined(txHash) {
         let txReceipt;
         while (!txReceipt) {
