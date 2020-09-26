@@ -23,7 +23,7 @@
   <!--=============================================-->
   <nav class="navbar">
     <div class="title">
-      <h6>Monkey Claw</h6>
+      <h6>MonkeyPaw</h6>
       <i class="fa fa-question" aria-hidden="true"></i>
     </div>
   </nav>
@@ -69,7 +69,7 @@
 
       </form>
 
-      <button id="cashout"  class="btn-farm">Cashout</button>
+      <button id="cashout" class="btn-farm">Cashout</button>
     </div>
 
     <div class="call-oracle">
@@ -145,45 +145,58 @@
       web3.eth.getAccounts(function(err, accounts) {
         console.log(accounts);
         address = accounts.toString();
-        window.sessionStorage.setItem("MiCuenta", address);
+        window.sessionStorage.setItem("My address", address);
       });
 
       var depositButton = document.getElementById("deposit");
       var oracleButton = document.getElementById("callOracle");
+      var cashoutButton = document.getElementById("cashout");
 
-      depositButton.addEventListener('click',function() {
+      //////////////// Making a Deposit  ///////////////////
+      depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
-        alert("lord help me");
-
-        tests.deposit("centrist", "dude", "420",function(err, transactionHash){
-          if(!err){console.log(transactionHash)}
+        alert("Registering Pull Request");
+        tests.deposit("centrist", "dude", "420", function(err, transactionHash) {
+          if (!err) {
+            console.log(transactionHash)
+          }
         });
 
       });
-
-      oracleButton.addEventListener('click',function() {
+      //////////////// Calling Oracle ///////////////////
+      oracleButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
         var testABI = web3.eth.contract(monkeyPawABI);
         var tests = testABI.at(monkeyPawAddress);
         alert("Hopefully calling oracle");
 
-        tests.requestGithubPullRequest("centrist", "dude", "420",function(err, transactionHash){
-          if(!err){console.log(transactionHash)}
+        tests.requestGithubPullRequest("centrist", "dude", "420", function(err, transactionHash) {
+          if (!err) {
+            console.log(transactionHash)
+          }
         });
 
       });
-    };
+      //////////////// Cashing out  ///////////////////
+      cashoutButton.addEventListener('click', function() {
+        //var value = jQuery("div#editor")[0].innerHTML;
+        // Need to add Owner, repo, pr
+        var testABI = web3.eth.contract(monkeyPawABI);
+        var tests = testABI.at(monkeyPawAddress);
+        alert("Minting PAW tokens for user");
+        tests.cashOut(2, function(err, transactionHash) {
+          if (!err) {
+            console.log(transactionHash)
+          }
+        });
 
+      });
 
-
-      // function getMonkeyPawDetails(id) {
-      //   return monkeyPaw.methods.monkeyPaw(id).call()
-      // }
-
+    }; ////this is send of listner
   </script>
 
 </body>
