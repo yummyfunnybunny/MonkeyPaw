@@ -161,7 +161,7 @@
       depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
-        alert("please");
+        alert("trying");
         miniToken.deposit("420","Dirty","Boss", {
           from: address
         })
@@ -183,12 +183,13 @@
             //console.log(data);
           } catch (err) {
 
-            return indicateFailure(err);
+            console.log(err);
           }
         }
         //document.getElementById("etherforart").hidden = true;
         //document.getElementById("etherforartcompra").hidden = false;
-        indicateSuccess();
+        //indicateSuccess();
+        console.log("yay");
       }
 
 
