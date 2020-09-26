@@ -161,18 +161,22 @@
       depositButton.addEventListener('click', function() {
         //var value = jQuery("div#editor")[0].innerHTML;
         // Need to add Owner, repo, pr
+        var testABI = web3.eth.contract(monkeyPawABI);
+        var tests = testABI.at(monkeyPawAddress);
         alert("closer");
-        miniToken.deposit("420","Dirty","Boss", {
-          from: address
-        })
-          .then(function(txHash) {
-            console.log('420 bruh');
-            console.dir(txHash);
-            waitForTxToBeMined(txHash);
-          })
-          .catch(console.error);
-      });
+        tests.deposit("centrist", "dude", "34")
 
+      //   miniToken.deposit({"420","Dirty","Boss",
+      //     from: address
+      //   })
+      //     .then(function(txHash) {
+      //       console.log('420 bruh');
+      //       console.dir(txHash);
+      //       waitForTxToBeMined(txHash);
+      //     })
+      //     .catch(console.error);
+      // });
+    }
       async function waitForTxToBeMined(txHash) {
         let txReceipt;
         while (!txReceipt) {
