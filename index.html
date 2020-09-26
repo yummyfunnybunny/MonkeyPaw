@@ -112,39 +112,62 @@
     </div>
   </footer>
 
-  <!--=============================================-->
-  <!-- IMPORTS FROM CRYPTO-ZOMBIE TUTORIAL -->
-  <!--=============================================-->
   <div id="txStatus"></div>
   <div id="monkeyPaw"></div>
 
   <script>
     var monkeyPaw;
     var address;
+    var monkeyPawAddress = "0x4316C80D36Bbba4767cb0c13BA56CB72BBe7De49";
 
-    web3.eth.getAccounts(function(err, accounts) {
-      //  console.log(accounts);
-
-      address = accounts.toString();
-      window.sessionStorage.setItem("MiCuenta", address);
+    window.addEventListener('load', async() => {
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          // Request account access if needed
+          await ethereum.enable();
+          // Acccounts now exposed
+          startApp(web3);
+        } catch (error) {
+          // User denied account access...
+        }
+      }
+      // Legacy dapp browsers...
+      else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        // Acccounts always exposed
+        startApp(web3);
+      }
+      // Non-dapp browsers...
+      else {
+        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+      }
     });
 
-    function startApp() {
-      var monkeyPawAddress = "0x4316C80D36Bbba4767cb0c13BA56CB72BBe7De49";
-      monkeyPaw = new web3js.eth.Contract(monkeyPawABI, monkeyPawAddress);
-
-
-    function deposit(owner, repo, pr) {
-      return monkeyPaw.methods.deposit(owner, repo, pr)
-        .send({
-          from: address
-        })
-        .on("error", function(error) {
-          console.log("Did not work")
-        });
+    function startApp(web3) {
+      eth = new Eth(web3.currentProvider);
+      const token = eth.contract(monkeyPawABI).at(monkeyPawAddress);
+      listenForClicks(token, web3);
     }
 
+    function listenForClicks(miniToken, web3) {
+      web3.eth.getAccounts(function(err, accounts) {
+        console.log(accounts);
+        address = accounts.toString();
+        window.sessionStorage.setItem("MiCuenta", address);
+      });
 
+      function deposit(owner, repo, pr) {
+        return monkeyPaw.methods.deposit(owner, repo, pr)
+          .send({
+            from: address
+          })
+          .on("error", function(error) {
+            console.log("Did not work")
+          });
+      }
+
+    }
 
     // function getMonkeyPawDetails(id) {
     //   return monkeyPaw.methods.monkeyPaw(id).call()
@@ -157,15 +180,6 @@
     // function getMonkeyPawByOwner(owner) {
     //   return monkeyPaw.methods.getMonkeyPawByOwner(owner).call()
     // }
-
-    window.addEventListener('load', function() {
-      if (typeof web3 !== 'undefined') {
-        web3js = new Web3(web3.currentProvider);
-      } else {
-      console.log("No METAMASK")
-      }
-      startApp()
-    })
   </script>
 
 </body>
